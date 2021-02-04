@@ -1,0 +1,25 @@
+Exercise 1. cat > file1
+pony
+cat file1 > file2
+tanchi@tanchi-VirtualBox:~$ ls
+Desktop  Documents  Downloads  er  er2  error.log  file1  file2  Music  Pictures  Public  snap  Templates  test  Videos
+tanchi@tanchi-VirtualBox:~$ ls file2
+file2
+tanchi@tanchi-VirtualBox:~$ cat file2
+pony
+tanchi@tanchi-VirtualBox:~$ ln -s file1 file3
+tanchi@tanchi-VirtualBox:~$ ls
+Desktop  Documents  Downloads  er  er2  error.log  file1  file2  file3  Music  Pictures  Public  snap  Templates  test  Videos
+tanchi@tanchi-VirtualBox:~$ cat file3
+pony
+tanchi@tanchi-VirtualBox:~$ ln file1 file4
+tanchi@tanchi-VirtualBox:~$ ls
+Desktop  Documents  Downloads  er  er2  error.log  file1  file2  file3  file4  Music  Pictures  Public  snap  Templates  test  Videos
+tanchi@tanchi-VirtualBox:~$ rm file1
+tanchi@tanchi-VirtualBox:~$ ls
+Desktop  Documents  Downloads  er  er2  error.log  file2  file3  file4  Music  Pictures  Public  snap  Templates  test  Videos
+tanchi@tanchi-VirtualBox:~$ cat file2 file3 file4
+pony
+cat: file3: No such file or directory
+pony
+
