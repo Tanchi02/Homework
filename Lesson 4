@@ -1,0 +1,70 @@
+Exercise 1.
+tanchi@tanchi-VirtualBox:~$ vim script1.sh
+
+tanchi@tanchi-VirtualBox:~$ vim file.txt
+tanchi@tanchi-VirtualBox:~$ chmod +x script1.sh
+tanchi@tanchi-VirtualBox:~$ ./script1.sh file.txt
+HFNRJNRJKRENFJ FJNVJFN  FJ IJF IJF JIVW
+KJFV  VK VKV E V
+JFNRJRENFRE
+RJNFJRNF FJNJNF
+FKNNJN
+FNEJRNFNFKNF
+tanchi@tanchi-VirtualBox:~$  cat file.txt
+hfnrjnrjkrenfj fjnvjfn  fj ijf ijf jivw
+kjfv  vk vkv e v
+
+jfnrjrenfre
+
+rjnfjrnf fjnjnf
+fknnjn
+
+fnejrnfnfknf
+
+Exercise 2.
+tanchi@tanchi-VirtualBox:~$ vim script2.sh
+
+#!/bin/bash
+LOGFILE=/var/log/auth.log
+tail -0f $LOGFILE | while read LINE
+  do
+    echo $LINE | grep -i "authentication failure"
+done
+
+tanchi@tanchi-VirtualBox:~$ chmod +x script2.sh
+tanchi@tanchi-VirtualBox:~$ ./script2.sh
+Feb 7 23:09:59 tanchi-VirtualBox sshd[2903]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=10.0.2.15 user=tanchi
+
+Exercise 3.
+
+tanchi@tanchi-VirtualBox:~$ vim script3.sh
+
+#!/bin/bash
+for year in {2017..2021}
+  do
+    for month in {01..12}
+     do
+      DIR='/home/tanchi/photo/'$year'/'$month
+      mkdir -p $DIR
+      for num in {001..005}
+       do
+         echo "Файл ${num}" > $DIR/file$num.txt
+       done
+   done
+done
+
+tanchi@tanchi-VirtualBox:~$ chmod +x script3.sh
+tanchi@tanchi-VirtualBox:~$ ./script3.sh
+tanchi@tanchi-VirtualBox:~$ ls
+Desktop         Documents  er   error.log  file.txt  knopa  photo     Public      script2.sh  snap       Videos
+directory_tree  Downloads  er2  Exercise3  folder    Music  Pictures  script1.sh  script3.sh  Templates
+tanchi@tanchi-VirtualBox:~$ ls photo
+2017  2018  2019  2020  2021
+tanchi@tanchi-VirtualBox:~$  ls photo/2020
+01  02  03  04  05  06  07  08  09  10  11  12
+tanchi@tanchi-VirtualBox:~$ ls photo/2018/03
+file001.txt  file002.txt  file003.txt  file004.txt  file005.txt
+
+Exercise 4
+
+0 9 * * * /usr/bin/du -sh /home/* >> /tmp/userspace.log 2>dev.null
