@@ -1,0 +1,83 @@
+Exercise 2.
+tanchi@tanchi-VirtualBox:~$ sudo apt install ifupdown
+tanchi@tanchi-VirtualBox:~$ sudo vim /etc/network/interfaces
+tanchi@tanchi-VirtualBox:~$ sudo vim /etc/network/interfaces.d/enp0s3
+# DHCP /etc/network/interfaces
+#auto enp0s3
+#iface enp0s3 inetdhcp
+
+auto enp0s3
+iface enp0s3 inet dhcp
+address 192.168.1.8
+gateway 192.168.1.1
+netmask 255.255.255.0
+network 192.168.1.0
+broadcast 192.168.1.255
+
+tanchi@tanchi-VirtualBox:~$ sudo systemctl restart networking.service
+tanchi@tanchi-VirtualBox:~$ sudo systemctl status networking.service
+● networking.service - Raise network interfaces
+     Loaded: loaded (/lib/systemd/system/networking.service; enabled; vendor preset: enabled)
+     Active: active (exited) since Mon 2021-02-08 23:34:40 MSK; 5s ago
+       Docs: man:interfaces(5)
+    Process: 4361 ExecStart=/sbin/ifup -a --read-environment (code=exited, status=0/SUCCESS)
+   Main PID: 4361 (code=exited, status=0/SUCCESS)
+      Tasks: 4 (limit: 2316)
+     Memory: 2.0M
+     CGroup: /system.slice/networking.service
+             └─4386 /sbin/dhclient -1 -4 -v -i -pf /run/dhclient.enp0s3.pid -lf /var/lib/dhcp/dhclient.enp0s3.leases -I -df /var/lib/dhcp/dhclient6.e>
+
+фев 08 23:34:38 tanchi-VirtualBox ifup[4386]: DHCPDISCOVER on enp0s3 to 255.255.255.255 port 67 interval 7 (xid=0x9c7a7011)
+фев 08 23:34:39 tanchi-VirtualBox dhclient[4386]: DHCPOFFER of 192.168.1.8 from 192.168.1.1
+фев 08 23:34:39 tanchi-VirtualBox ifup[4386]: DHCPOFFER of 192.168.1.8 from 192.168.1.1
+фев 08 23:34:39 tanchi-VirtualBox ifup[4386]: DHCPREQUEST for 192.168.1.8 on enp0s3 to 255.255.255.255 port 67 (xid=0x11707a9c)
+фев 08 23:34:39 tanchi-VirtualBox dhclient[4386]: DHCPREQUEST for 192.168.1.8 on enp0s3 to 255.255.255.255 port 67 (xid=0x11707a9c)
+фев 08 23:34:39 tanchi-VirtualBox dhclient[4386]: DHCPACK of 192.168.1.8 from 192.168.1.1 (xid=0x9c7a7011)
+фев 08 23:34:39 tanchi-VirtualBox ifup[4386]: DHCPACK of 192.168.1.8 from 192.168.1.1 (xid=0x9c7a7011)
+фев 08 23:34:40 tanchi-VirtualBox dhclient[4386]: bound to 192.168.1.8 -- renewal in 39912 seconds.
+фев 08 23:34:40 tanchi-VirtualBox ifup[4386]: bound to 192.168.1.8 -- renewal in 39912 seconds.
+фев 08 23:34:40 tanchi-VirtualBox systemd[1]: Finished Raise network interfaces.
+
+
+Exercise 3.
+tanchi@tanchi-VirtualBox:~$ sudo vim /etc/network/interfaces.d/enp0s3
+
+# DHCP /etc/network/interfaces
+#auto enp0s3
+#iface enp0s3 inet dhcp
+
+auto enp0s3
+iface enp0s3 inet dhcp
+address 192.168.1.8
+gateway 192.168.1.1
+netmask 255.255.255.0
+network 192.168.1.0
+broadcast 192.168.1.255
+dns-nameservers 1.1.1.1
+
+tanchi@tanchi-VirtualBox:~$ sudo systemctl restart networking.service
+tanchi@tanchi-VirtualBox:~$ sudo systemctl status networking.service
+● networking.service - Raise network interfaces
+     Loaded: loaded (/lib/systemd/system/networking.service; enabled; vendor preset: enabled)
+     Active: active (exited) since Tue 2021-02-09 03:00:43 MSK; 4s ago
+       Docs: man:interfaces(5)
+    Process: 8591 ExecStart=/sbin/ifup -a --read-environment (code=exited, status=0/SUCCESS)
+   Main PID: 8591 (code=exited, status=0/SUCCESS)
+      Tasks: 4 (limit: 2316)
+     Memory: 2.0M
+     CGroup: /system.slice/networking.service
+             └─8616 /sbin/dhclient -1 -4 -v -i -pf /run/dhclient.enp0s3.pid -lf /var/lib/dhcp/dhclient.enp0s3.leases -I -df /var/lib/dhcp/dhclient6.e>
+
+фев 09 03:00:42 tanchi-VirtualBox ifup[8616]: DHCPDISCOVER on enp0s3 to 255.255.255.255 port 67 interval 5 (xid=0xf6f90f4c)
+фев 09 03:00:43 tanchi-VirtualBox dhclient[8616]: DHCPOFFER of 192.168.1.8 from 192.168.1.1
+фев 09 03:00:43 tanchi-VirtualBox ifup[8616]: DHCPOFFER of 192.168.1.8 from 192.168.1.1
+фев 09 03:00:43 tanchi-VirtualBox ifup[8616]: DHCPREQUEST for 192.168.1.8 on enp0s3 to 255.255.255.255 port 67 (xid=0x4c0ff9f6)
+фев 09 03:00:43 tanchi-VirtualBox dhclient[8616]: DHCPREQUEST for 192.168.1.8 on enp0s3 to 255.255.255.255 port 67 (xid=0x4c0ff9f6)
+фев 09 03:00:43 tanchi-VirtualBox dhclient[8616]: DHCPACK of 192.168.1.8 from 192.168.1.1 (xid=0xf6f90f4c)
+фев 09 03:00:43 tanchi-VirtualBox ifup[8616]: DHCPACK of 192.168.1.8 from 192.168.1.1 (xid=0xf6f90f4c)
+фев 09 03:00:43 tanchi-VirtualBox dhclient[8616]: bound to 192.168.1.8 -- renewal in 40886 seconds.
+фев 09 03:00:43 tanchi-VirtualBox ifup[8616]: bound to 192.168.1.8 -- renewal in 40886 seconds.
+фев 09 03:00:43 tanchi-VirtualBox systemd[1]: Finished Raise network interfaces.
+
+
+
